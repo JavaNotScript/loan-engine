@@ -15,13 +15,13 @@ public class MyUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return new UserPrincipal(
                 user.getUserId(),
                 user.getUsername(),
-                user.getUserRole().getRoleName().name()
+                user.getPassword(),
+                user.getRole().getRoleName().name()
         );
     }
 }

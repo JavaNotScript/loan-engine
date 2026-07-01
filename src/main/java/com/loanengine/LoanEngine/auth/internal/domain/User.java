@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_t")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,7 +18,7 @@ import java.util.UUID;
 @ToString(exclude = "password")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userId;
 
     @Column(name = "username")
@@ -33,8 +33,9 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToOne
-    private UserRole userRole;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private UserRole role;
 
     @CreationTimestamp
     @Column(name = "created_at")

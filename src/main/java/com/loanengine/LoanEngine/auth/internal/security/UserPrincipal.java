@@ -20,9 +20,7 @@ public class UserPrincipal implements UserDetails, CurrentUser {
         this.userId = userId;
         this.username = username;
         this.role = role;
-
-
-        password = null;
+        this.password = "";
     }
 
     public UserPrincipal(UUID userId, String username, String password, String role) {
@@ -34,7 +32,7 @@ public class UserPrincipal implements UserDetails, CurrentUser {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+role));
     }
 
     @Override

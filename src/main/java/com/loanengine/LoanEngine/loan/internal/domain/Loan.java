@@ -1,4 +1,4 @@
-package com.loanengine.LoanEngine.loan.domain;
+package com.loanengine.LoanEngine.loan.internal.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
