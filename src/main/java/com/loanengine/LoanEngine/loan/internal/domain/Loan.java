@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -22,17 +23,23 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loanId;
 
-    @Column(name = "customer_id",nullable = false,updatable = false)
+    @Column(name = "customer_id")
     private Long customerId;
 
-    @Column(name = "loan_number",updatable = false,nullable = false)
+    @Column(name = "loan_number",updatable = false,nullable = false,unique = true)
     private String loanNumber;
 
     @Column(name = "original_principal",updatable = false,nullable = false)
     private BigDecimal originalPrincipal;
 
-    @Column(name = "outstanding_principal")
+    @Column(name = "outstanding_principal",nullable = false)
     private BigDecimal outstandingPrincipal;
+
+    @Column(name = "monthly_installment")
+    private BigDecimal monthlyInstallment;
+
+    @Column(name = "currency_code")
+    private CurrencyCode currencyCode;
 
     @Column(name = "annual_interest",updatable = false,nullable = false)
     private BigDecimal annualInterest;
@@ -40,13 +47,19 @@ public class Loan {
     @Column(name = "original_term_months")
     private Integer originalTermMonths;
 
-    @Column(name ="remianining_term_months")
+    @Column(name ="remaining_term_months")
     private Integer remainingTermMonths;
 
-
     @CreationTimestamp
-    @Column(name = "start_date",updatable = false,nullable = false)
-    private OffsetDateTime startDate;
+    @Column(name = "created_at")
+    private OffsetDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private OffsetDateTime updatedAt;
+
+    @Column(name = "loan_start_date",updatable = false,nullable = false)
+    private OffsetDateTime loanStartDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "loan_status")
